@@ -1,35 +1,35 @@
 const mongoose = require("mongoose");
 
 const postSchema = mongoose.Schema({
-    id: {
+    id: { // Post ID
         type: Number,
         required: true,
     },
-    authorId: {
+    authorId: { // User ID of post author
         type: Number,
         required: true,
     },
-    content: {
+    content: { // Text content of post
         type: String,
         required: true,
     },
-    timestamp: {
+    timestamp: { // Time post posted
         type: Date,
         default: Date.now,
     },
-    zip: {
+    zip: { // ZIP code of event
         type: Number,
         required: false,
     },
-    attachment: {
+    attachment: { // URL to file for event (e.g. flyer image)
         type: String,
         required: false,
     },
-    comments: {
+    comments: { // Array of comment IDs
         type: Array,
         default: []
     },
-    attendees: {
+    attendees: { // Array of user IDs
         type: Array,
         default: []
     }
