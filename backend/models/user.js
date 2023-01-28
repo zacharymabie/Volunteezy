@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
 const userSchema = mongoose.Schema({
+  id: {
+    type: Number,
+    required: true,
+  },
   username: {
     type: String,
     required: true,
@@ -17,33 +21,34 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  isAdmin: {
-    type: Boolean,
-    default: false,
+  zip: {
+    type: Number,
+    required: true
   },
   profilePic: {
     type: String,
+    default: "", // TODO: Set default profile picture path here
   },
   bio: {
     type: String,
     default: "",
   },
-  rank:{
+  rank: {
     type: String,
     default: "New VoluntUser",
   },
-});
-
-userSchema.virtual("id").get(function () {
-  return this._id.toHexString();
-});
-
-userSchema.virtual("id").get(function () {
-  return this._id.toHexString();
-});
-
-userSchema.set("toJSON", {
-  virtuals: true,
+  posts: {
+    type: Array,
+    default: []
+  },
+  comments: {
+    type: Array,
+    default: []
+  },
+  bookmarks: {
+    type: Array,
+    default: []
+  }
 });
 
 exports.User = mongoose.model("User", userSchema);
