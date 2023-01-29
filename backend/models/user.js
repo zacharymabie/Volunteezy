@@ -41,9 +41,13 @@ const userSchema = mongoose.Schema({
     type: Array,
     default: []
   },
-  verified: {
+  verified: { // Whether user is a verified organizer
     type: Boolean,
     default: false
+  },
+  score: { // Score calculated by hours * 3 * # of activities
+    type: Number,
+    default: 0
   }
 });
 

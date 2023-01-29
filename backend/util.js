@@ -1,5 +1,4 @@
-const express = require("express");
-const router = express.Router();
+const { User } = require("./models/user.js");
 
 async function authenticate(token, userID) {
     const user = await User.findById(userID);
@@ -7,4 +6,4 @@ async function authenticate(token, userID) {
     return token === user.passwordHash
 }
 
-export { authenticate };
+exports.authenticate = authenticate;

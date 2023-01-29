@@ -31,8 +31,12 @@ router.get("/:userID", async (req, res) => {
 
 // Create profile
 router.post("/", async (req, res) => {
-    // TODO: Check availability of username and email
-    // TODO: Type checking of input
+    const findUsername = await User.find({username: req.body.username});
+    console.log(findUsername);
+    if (findUsername.length > 0) return res.status(400).send("Username already taken");
+    const findEmail = await User.find({email: req.body.email});
+    console.log(findEmail);
+    if (findEmail.length > 0) return res.status(400).send("Email already in use");
     const userModel = new User({
         username: req.body.username,
         name: req.body.name,
@@ -45,108 +49,25 @@ router.post("/", async (req, res) => {
     res.send(user);
 });
 
-// Set name
-router.put("/name", async (req, res) => {
+// Edit profile
+router.put("/edit", async (req, res) => {
     if (!(await authenticate(req.body.token, req.params.userID))) 
         return res.status(401).json({success: false, message: "Not authenticated"});
     const user = await User.findByIdAndUpdate(
-        req.body.id,
-        { name: req.body.name, },
+        req.body.userId,
+        {
+            name: req.body.name,
+            username: req.body.username,
+            profilePic: req.body.profilePic,
+            bio: req.body.bio,
+            email: req.body.email,
+            passwordHash: req.body.password,
+            zip: req.body.zip,
+        },
         { new: true }
     );
-    if (!user) return res.status(400).send("User cannot be updated.");
-    res.send(user);
-});
-
-// Set username
-router.put("/username", async (req, res) => {
-    if (!(await authenticate(req.body.token, req.params.userID))) 
-        return res.status(401).json({success: false, message: "Not authenticated"});
-    const user = await User.findByIdAndUpdate(
-        req.body.id,
-        { username: req.body.username },
-        { new: true }
-    );
-    if (!user) return res.status(400).send("User cannot be updated.");
-    res.send(user);
-});
-
-// Set profile picture
-router.put("/avatar", async (req, res) => {
-    if (!(await authenticate(req.body.token, req.params.userID))) 
-        return res.status(401).json({success: false, message: "Not authenticated"});
-    const user = await User.findByIdAndUpdate(
-        req.body.id,
-        { profilePic: req.body.profilePic, },
-        { new: true }
-    );
-    if (!user) return res.status(400).send("User cannot be updated.");
-    res.send(user);
-});
-
-// Delete profile picture
-router.delete("/avatar", async (req, res) => {
-    if (!(await authenticate(req.body.token, req.params.userID))) 
-        return res.status(401).json({success: false, message: "Not authenticated"});
-    const user = await User.findByIdAndUpdate(
-        req.body.id,
-        { profilePic: "", },
-        { new: true }
-    );
-    if (!user) return res.status(400).send("User cannot be updated.");
-    res.send(user);
-});
-
-// Set bio
-router.put("/bio", async (req, res) => {
-    if (!(await authenticate(req.body.token, req.params.userID))) 
-        return res.status(401).json({success: false, message: "Not authenticated"});
-    const user = await User.findByIdAndUpdate(
-        req.body.id,
-        { bio: req.body.bio, },
-        { new: true }
-    );
-    if (!user) return res.status(400).send("User cannot be updated.");
-    res.send(user);
-});
-
-// Set email
-router.put("/email", async (req, res) => {
-    if (!(await authenticate(req.body.token, req.params.userID))) 
-        return res.status(401).json({success: false, message: "Not authenticated"});
-    const user = await User.findByIdAndUpdate(
-        req.body.id,
-        { email: req.body.email, },
-        { new: true }
-    );
-    if (!user) return res.status(400).send("User cannot be updated.");
-    res.send(user);
-});
-
-// Set password
-router.put("/password", async (req, res) => {
-    if (!(await authenticate(req.body.token, req.params.userID))) 
-        return res.status(401).json({success: false, message: "Not authenticated"});
-    const user = await User.findByIdAndUpdate(
-        req.body.id,
-        { passwordHash: req.body.password, },
-        { new: true }
-    );
-    if (!user) return res.status(400).send("User cannot be updated.");
-    res.send(user);
-});
-
-// Set ZIP code
-router.put("/zip", async (req, res) => {
-    if (!(await authenticate(req.body.token, req.params.userID))) 
-        return res.status(401).json({success: false, message: "Not authenticated"});
-    const user = await User.findByIdAndUpdate(
-        req.body.id,
-        { zip: req.body.zip, },
-        { new: true }
-    );
-    if (!user) return res.status(400).send("User cannot be updated.");
-    res.send(user);
+    if (!user) return res.status(400).send("Error occured while editing profile");
+    res.send(user)
 });
 
 // Login

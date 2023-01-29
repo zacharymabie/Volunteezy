@@ -67,8 +67,13 @@ router.post("/:postID/comment", async (req, res) => {
         content: req.body.content
     });
     const comment = await commentModel.save();
-    // TODO: Add to post comments array
     if (!comment) return res.status(400).send("Comment cannot be created");
+    // Add to post comments array
+    const post = await Post.findById(comment.postId);
+    let comments = post.comments;
+    comments.push(comment._id);
+    const newPost = await Post.findByIdAndUpdate(post._id, { comments: comments }, { new: true });
+    if (!newPost) return res.status(400).send("Comment could not be saved");
     res.send(comment);
 });
 
@@ -97,18 +102,10 @@ router.put("/:postID/bookmark", async (req, res) => {
     // Add post ID to user's bookmarks
     const user = await User.findById(req.body.userId);
     let bookmarks = user.bookmarks;
-    if (!bookmarks.includes(req.params.postID)){
+    if (!bookmarks.includes(req.params.postID)) {
         bookmarks.push(req.params.postID);
-        const new_bookmark = User.findByIdAndUpdate(
-            req.body.userId,
-            {
-              bookmarks: bookmarks
-            },
-            { new: true }
-          );
-        if (!new_bookmark) return res.status(400).send("Post cannot be bookmarked");
-    
-        res.status(200).send(new_bookmark);
+        const newBookmark = await User.findByIdAndUpdate(req.body.userId, { bookmarks: bookmarks }, { new: true });
+        if (!newBookmark) return res.status(400).send("Post cannot be bookmarked");
     }
     res.status(200).send(bookmarks)
 });
@@ -126,8 +123,8 @@ router.delete("/:postID/bookmark", async (req, res) => {
     if (index > -1) { // only splice array when item is found
         bookmarks.splice(index, 1); // 2nd parameter means remove one item only
     }
-    const new_bookmark = User.findByIdAndUpdate(req.body.userId, { bookmarks: bookmarks }, { new: true });
-    if (!new_bookmark) return res.status(400).send("Post cannot be unbookmarked");
+    const newBookmark = await User.findByIdAndUpdate(req.body.userId, { bookmarks: bookmarks }, { new: true });
+    if (!newBookmark) return res.status(400).send("Post cannot be unbookmarked");
     res.status(200).send(bookmarks)
 });
 
@@ -146,16 +143,10 @@ router.post("/:postID/rsvp", async (req, res) => {
         return res.status(401).json({ success: false, message: "Not authenticated" });
     // Add user ID to post's attendees
     let attendees = post.attendees;
-    if(!attendees.includes(req.body.userId)){
+    if (!attendees.includes(req.body.userId)) {
         attendees.push(req.body.userId);
-        const new_attendee = Post.findByIdAndUpdate(
-            req.params.postID,
-            {
-              attendees: attendees
-            },
-            { new: true }
-          );
-        if (!new_attendee) return res.status(400).send("Error in submitting RSVP");
+        const newAttendee = await Post.findByIdAndUpdate(req.params.postID, { attendees: attendees }, { new: true });
+        if (!newAttendee) return res.status(400).send("Error in submitting RSVP");
     }
     res.status(200).send(attendees)
 
@@ -173,14 +164,8 @@ router.delete("/:postID/rsvp", async (req, res) => {
     if (index > -1) { // only splice array when item is found
         attendees.splice(index, 1); // 2nd parameter means remove one item only
     }
-    const new_attendee = Post.findByIdAndUpdate(
-        req.params.postID,
-        {
-            attendees: attendees
-        },
-        { new: true }
-        );
-    if (!new_attendee) return res.status(400).send("Error in withdrawing RSVP");
+    const newAttendee = await Post.findByIdAndUpdate(req.params.postID, { attendees: attendees }, { new: true });
+    if (!newAttendee) return res.status(400).send("Error in withdrawing RSVP");
     res.status(200).send(attendees)
 });
 
