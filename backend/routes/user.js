@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { User } = require("../models/user.js");
+const { authenticate } = require("../util.js");
 
 // Get public details of profile
 router.get("/:userID/profile", async (req, res) => {
@@ -21,7 +22,8 @@ router.get("/:userID/profile", async (req, res) => {
 
 // Get full private details of user
 router.get("/:userID", async (req, res) => {
-    // TODO: Authentication
+    if (!(await authenticate(req.body.token, req.params.userID))) 
+        return res.status(401).json({success: false, message: "Not authenticated"});
     const user = await User.findById(req.params.userID);
     if (!user) return res.status(404).json({ message: "The user with the given ID was not found" });
     res.status(200).send(user);
@@ -45,7 +47,8 @@ router.post("/", async (req, res) => {
 
 // Set name
 router.put("/name", async (req, res) => {
-    // TODO: Authentication
+    if (!(await authenticate(req.body.token, req.params.userID))) 
+        return res.status(401).json({success: false, message: "Not authenticated"});
     const user = await User.findByIdAndUpdate(
         req.body.id,
         { name: req.body.name, },
@@ -57,7 +60,8 @@ router.put("/name", async (req, res) => {
 
 // Set username
 router.put("/username", async (req, res) => {
-    // TODO: Authentication
+    if (!(await authenticate(req.body.token, req.params.userID))) 
+        return res.status(401).json({success: false, message: "Not authenticated"});
     const user = await User.findByIdAndUpdate(
         req.body.id,
         { username: req.body.username },
@@ -69,7 +73,8 @@ router.put("/username", async (req, res) => {
 
 // Set profile picture
 router.put("/avatar", async (req, res) => {
-    // TODO: Authentication
+    if (!(await authenticate(req.body.token, req.params.userID))) 
+        return res.status(401).json({success: false, message: "Not authenticated"});
     const user = await User.findByIdAndUpdate(
         req.body.id,
         { profilePic: req.body.profilePic, },
@@ -81,7 +86,8 @@ router.put("/avatar", async (req, res) => {
 
 // Delete profile picture
 router.delete("/avatar", async (req, res) => {
-    // TODO: Authentication
+    if (!(await authenticate(req.body.token, req.params.userID))) 
+        return res.status(401).json({success: false, message: "Not authenticated"});
     const user = await User.findByIdAndUpdate(
         req.body.id,
         { profilePic: "", },
@@ -93,7 +99,8 @@ router.delete("/avatar", async (req, res) => {
 
 // Set bio
 router.put("/bio", async (req, res) => {
-    // TODO: Authentication
+    if (!(await authenticate(req.body.token, req.params.userID))) 
+        return res.status(401).json({success: false, message: "Not authenticated"});
     const user = await User.findByIdAndUpdate(
         req.body.id,
         { bio: req.body.bio, },
@@ -105,7 +112,8 @@ router.put("/bio", async (req, res) => {
 
 // Set email
 router.put("/email", async (req, res) => {
-    // TODO: Authentication
+    if (!(await authenticate(req.body.token, req.params.userID))) 
+        return res.status(401).json({success: false, message: "Not authenticated"});
     const user = await User.findByIdAndUpdate(
         req.body.id,
         { email: req.body.email, },
@@ -117,7 +125,8 @@ router.put("/email", async (req, res) => {
 
 // Set password
 router.put("/password", async (req, res) => {
-    // TODO: Authentication
+    if (!(await authenticate(req.body.token, req.params.userID))) 
+        return res.status(401).json({success: false, message: "Not authenticated"});
     const user = await User.findByIdAndUpdate(
         req.body.id,
         { passwordHash: req.body.password, },
@@ -129,7 +138,8 @@ router.put("/password", async (req, res) => {
 
 // Set ZIP code
 router.put("/zip", async (req, res) => {
-    // TODO: Authentication
+    if (!(await authenticate(req.body.token, req.params.userID))) 
+        return res.status(401).json({success: false, message: "Not authenticated"});
     const user = await User.findByIdAndUpdate(
         req.body.id,
         { zip: req.body.zip, },
@@ -137,6 +147,17 @@ router.put("/zip", async (req, res) => {
     );
     if (!user) return res.status(400).send("User cannot be updated.");
     res.send(user);
+});
+
+// Login
+router.post("/login", async (req, res) => {
+    // TODO: Make an actual login and token system
+    const user = await User.findOne({ email: req.body.email });
+    if (!user) return res.status(404).send("Email not found");
+    if (req.body.password === user.passwordHash)
+        res.status(200).send({ user: user.email, token: req.body.password });
+    else
+        res.status(401).send("Wrong password");
 });
 
 module.exports = router;
