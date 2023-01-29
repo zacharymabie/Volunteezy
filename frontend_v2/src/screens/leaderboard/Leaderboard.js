@@ -1,6 +1,9 @@
-
+import { useEffect, useState } from "react";
+import { useRef } from 'react';
+import ReactConfetti from 'react-confetti';
 
 function Leaderboard(){
+    const windowSize = useRef([window.innerWidth, window.innerHeight]);
     return(
         <div>
             <head>
@@ -13,7 +16,7 @@ function Leaderboard(){
             <body class="is-preload">
 
                     <div id="wrapper">
-
+                            <ReactConfetti width = {windowSize.current[0]} height = {windowSize.current[0]}> </ReactConfetti>
                             <header id="header">
                                 <h1>Leaderboard</h1>
                                 <p>The top volunteers in your community!</p>

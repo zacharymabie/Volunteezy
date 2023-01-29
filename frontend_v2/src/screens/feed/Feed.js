@@ -1,6 +1,14 @@
 import mosh from "../../images/mosh.jpg"
+import React, { useState } from 'react';
+import Button from '../../../node_modules/react-bootstrap/Button';
+import Form from '../../../node_modules/react-bootstrap/Form';
+import Modal from '../../../node_modules/react-bootstrap/Modal';
 
 function Feed(){
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
     return(
         <div>
             <head>
@@ -19,6 +27,38 @@ function Feed(){
                             </header>
 
                             <div id="main">
+
+                                    <>
+                                    <Button variant="primary" onClick={handleShow} style={{"background-color":"aliceblue", display: 'flex', justifyContent: 'center'}}>
+                                        Create New Post!
+                                    </Button>
+
+                                    <Modal show={show} onHide={handleClose}>
+                                        <Modal.Header>
+                                        <Modal.Title>Create Post</Modal.Title>
+                                        </Modal.Header>
+                                        <Form>
+                                        <Form.Group className="p-3" controlId="exampleForm.ControlTextarea1">
+                                            <Form.Label>Write your post here:</Form.Label>
+                                            <Form.Control as="textarea" rows={3} />
+                                        </Form.Group>
+
+                                        <Form.Group controlId="formFile" className="mb-3">
+                                        <Form.Label>Insert Image</Form.Label>
+                                        <Form.Control type="file" multiple />
+                                        </Form.Group>
+
+                                        </Form>
+                                        <Modal.Footer>
+                                        <Button variant="secondary" onClick={handleClose}>
+                                            Cancel
+                                        </Button>
+                                        <Button variant="primary" onClick={handleClose}>
+                                            Post
+                                        </Button>
+                                        </Modal.Footer>
+                                    </Modal>
+                                    </>
 
                                     <section style={{"background-color":"aliceblue"}} id="content" className="main">
                                         <div className="post">
