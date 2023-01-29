@@ -42,32 +42,106 @@ router.post("/", async (req, res) => {
 
 // Set name
 router.put("/name", async (req, res) => {
-
+    const user = await User.findByIdAndUpdate(
+        req.body.id,
+        {
+            name: req.body.name,
+        },
+        { new: true }
+    );
+    if (!user) return res.status(400).send("User cannot be updated.");
+    res.send(user);
 });
 
 // Set username
 router.put("/username", async (req, res) => {
-
+    const user = await User.findByIdAndUpdate(
+        req.body.id,
+        {
+            username: req.body.username
+        },
+        { new: true }
+    );
+    if (!user) return res.status(400).send("User cannot be updated.");
+    res.send(user);
 });
 
 // Set profile picture
 router.put("/avatar", async (req, res) => {
-
+    const user = await User.findByIdAndUpdate(
+        req.body.id,
+        {
+            profilePic: req.body.profilePic,
+        },
+        { new: true }
+    );
+    if (!user) return res.status(400).send("User cannot be updated.");
+    res.send(user);
 });
 
 // Delete profile picture
 router.delete("/avatar", async (req, res) => {
-
+    const user = await User.findByIdAndUpdate(
+        req.body.id,
+        {
+            profilePic: "",
+        },
+        { new: true }
+    );
+    if (!user) return res.status(400).send("User cannot be updated.");
+    res.send(user);
 });
 
 // Set bio
 router.put("/bio", async (req, res) => {
-
+    const user = await User.findByIdAndUpdate(
+        req.body.id,
+        {
+            bio: req.body.bio,
+        },
+        { new: true }
+    );
+    if (!user) return res.status(400).send("User cannot be updated.");
+    res.send(user);
 });
 
 // Set email
 router.put("/email", async (req, res) => {
+    const user = await User.findByIdAndUpdate(
+        req.body.id,
+        {
+            email: req.body.email,
+        },
+        { new: true }
+    );
+    if (!user) return res.status(400).send("User cannot be updated.");
+    res.send(user);
+});
 
+// Set password
+router.put("/password", async (req, res) => {
+    const user = await User.findByIdAndUpdate(
+        req.body.id,
+        {
+            passwordHash: req.body.password,
+        },
+        { new: true }
+    );
+    if (!user) return res.status(400).send("User cannot be updated.");
+    res.send(user);
+});
+
+// Set ZIP code
+router.put("/zip", async (req, res) => {
+    const user = await User.findByIdAndUpdate(
+        req.body.id,
+        {
+            zip: req.body.zip,
+        },
+        { new: true }
+    );
+    if (!user) return res.status(400).send("User cannot be updated.");
+    res.send(user);
 });
 
 module.exports = router;
