@@ -6,9 +6,9 @@ const router = express.Router();
 
 // Get own timesheet
 router.get("/", async (req, res) => {
-    if (!(await authenticate(req.body.token, req.body.userId))) // Expect userId in body
+    if (!(await authenticate(req.query.token, req.query.userId))) // Expect userId in body
         return res.status(401).json({ success: false, message: "Not authenticated" });
-    Record.find({ userID: req.body.userId }).sort({ 'score': 'desc' }).exec(function (err, records) {
+    Record.find({ userID: req.query.userId }).sort({ 'score': 'desc' }).exec(function (err, records) {
         if (err) return res.status(400).send("Error while loading timesheet");
         res.status(200).send(records);
     });
@@ -17,7 +17,7 @@ router.get("/", async (req, res) => {
 // Get record by recordID
 router.get("/record/:recordID", async (req, res) => {
     const record = await Record.findOne({ _id: req.params.recordID });
-    if (!(await authenticate(req.body.token, record.userID))) // Expect userId in body
+    if (!(await authenticate(req.query.token, record.userID))) // Expect userId in body
         return res.status(401).json({ success: false, message: "Not authenticated" });
     res.status(200).send(record);
 });
@@ -66,7 +66,7 @@ router.put("/record/:recordID/edit", async (req, res) => {
 
 // Export PDF of timesheet
 router.get("/export", async (req, res) => {
-    if (!(await authenticate(req.body.token, req.body.userID))) // Expect userId in body
+    if (!(await authenticate(req.query.token, req.query.userID))) // Expect userId in body
         return res.status(401).json({ success: false, message: "Not authenticated" });
     // TODO: Generate PDF
     res.status(200).send();

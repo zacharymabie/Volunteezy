@@ -23,9 +23,9 @@ router.get("/", async (req, res) => {
 
 // Get local leaderboard
 router.get("/local", async (req, res) => {
-    if (!(await authenticate(req.body.token, req.body.userId))) // Expect userId in body
+    if (!(await authenticate(req.query.token, req.query.userId))) // Expect userId in body
         return res.status(401).json({ success: false, message: "Authentication failed" });
-    const user = await User.findById(req.body.userId);
+    const user = await User.findById(req.query.userId);
     User.find({ zip: user.zip }).sort({'score': 'desc'}).exec(function (err, users) {
         if (err) return res.status(400).send("Error while loading leaderboard");
         const leaderboard = [];

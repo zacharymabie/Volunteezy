@@ -21,7 +21,7 @@ router.get("/:userID/profile", async (req, res) => {
 
 // Get full private details of user
 router.get("/:userID", async (req, res) => {
-    if (!(await authenticate(req.body.token, req.params.userID))) 
+    if (!(await authenticate(req.query.token, req.params.userID))) 
         return res.status(401).json({success: false, message: "Not authenticated"});
     const user = await User.findById(req.params.userID);
     if (!user) return res.status(404).json({ message: "The user with the given ID was not found" });
