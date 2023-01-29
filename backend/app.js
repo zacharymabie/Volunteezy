@@ -4,16 +4,14 @@ const mongoose = require("mongoose");
 
 app.use(express.json());
 
-const pingRouter = require("./routes/ping.js");
+const userRouter = require("./routes/user.js");
 const actionsRouter = require("./routes/post.js");
 const leaderboardRouter = require("./routes/leaderboard.js");
-const userRouter = require("./routes/user.js");
 const timesheetRouter = require("./routes/timesheet.js");
 const feedRouter = require("./routes/feed.js");
-app.use("/ping", pingRouter);
+app.use("/user", userRouter);
 app.use("/post", actionsRouter);
 app.use("/leaderboard", leaderboardRouter);
-app.use("/user", userRouter);
 app.use("/timesheet", timesheetRouter);
 app.use("/feed", feedRouter);
 

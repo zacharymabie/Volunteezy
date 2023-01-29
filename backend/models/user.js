@@ -29,14 +29,6 @@ const userSchema = mongoose.Schema({
     type: String,
     default: "",
   },
-  posts: { // Array of user's post IDs
-    type: Array,
-    default: []
-  },
-  comments: { // Array of user's comment IDs
-    type: Array,
-    default: []
-  },
   bookmarks: { // Array of user's bookmarked post IDs
     type: Array,
     default: []

@@ -15,8 +15,7 @@ router.get("/:userID/profile", async (req, res) => {
         bio: user.bio,
         posts: user.posts,
         verified: user.verified,
-        activities: 0,
-        score: 0
+        score: user.score
     });
 });
 
@@ -32,10 +31,8 @@ router.get("/:userID", async (req, res) => {
 // Create profile
 router.post("/", async (req, res) => {
     const findUsername = await User.find({username: req.body.username});
-    console.log(findUsername);
     if (findUsername.length > 0) return res.status(400).send("Username already taken");
     const findEmail = await User.find({email: req.body.email});
-    console.log(findEmail);
     if (findEmail.length > 0) return res.status(400).send("Email already in use");
     const userModel = new User({
         username: req.body.username,
@@ -51,7 +48,7 @@ router.post("/", async (req, res) => {
 
 // Edit profile
 router.put("/edit", async (req, res) => {
-    if (!(await authenticate(req.body.token, req.params.userID))) 
+    if (!(await authenticate(req.body.token, req.body.userId))) 
         return res.status(401).json({success: false, message: "Not authenticated"});
     const user = await User.findByIdAndUpdate(
         req.body.userId,

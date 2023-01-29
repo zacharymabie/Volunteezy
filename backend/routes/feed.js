@@ -10,8 +10,6 @@ router.get("/", async (req, res) => {
         return res.status(401).json({ success: false, message: "Authentication failed" });
     const user = await User.findById(req.body.userId);
     Post.find({ zip: user.zip }).sort({'timestamp': 'desc'}).exec(function (err, posts) {
-        console.log(err);
-        console.log(posts);
         if (err) return res.status(400).send("Error while loading feed");
         const postList = [];
         for (let i = 0; i < Math.min(5, posts.length); i++) {

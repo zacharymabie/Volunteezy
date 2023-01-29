@@ -21,10 +21,6 @@ const postSchema = mongoose.Schema({
         type: String,
         required: false,
     },
-    comments: { // Array of comment IDs
-        type: Array,
-        default: []
-    },
     attendees: { // Array of user IDs
         type: Array,
         default: []

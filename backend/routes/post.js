@@ -14,10 +14,10 @@ router.get("/:postID", async (req, res) => {
 
 // Create post
 router.post("/", async (req, res) => {
-    if (!(await authenticate(req.body.token, req.body.authorId)))
+    if (!(await authenticate(req.body.token, req.body.userId)))
         return res.status(401).json({ success: false, message: "Not authenticated" });
     const postModel = new Post({
-        authorId: req.body.authorId,
+        authorId: req.body.userId,
         content: req.body.content,
         zip: req.body.zip,
         attachment: req.body.attachment
@@ -54,26 +54,27 @@ router.get("/:postID/comment/:commentID", async (req, res) => {
 router.get("/:postID/comments", async (req, res) => {
     const post = await Post.findById(req.params.postID);
     if (!post) return res.status(404).json({ message: "The post with the given ID was not found" });
-    res.status(200).send(post.comments);
+    const comments = [];
+    for (let i = 0; i < post.comments.length; i++) {
+        const commentID = post.comments[i];
+        const comment = await Comment.findById(commentID);
+        if (!comment) continue;
+        comments.push(comment);
+    }
+    res.status(200).send(comments);
 });
 
 // Post new comment
 router.post("/:postID/comment", async (req, res) => {
-    if (!(await authenticate(req.body.token, req.body.authorId)))
+    if (!(await authenticate(req.body.token, req.body.userId)))
         return res.status(401).json({ success: false, message: "Not authenticated" });
     const commentModel = new Comment({
         postId: req.params.postID,
-        authorId: req.body.authorId,
+        authorId: req.body.userId,
         content: req.body.content
     });
     const comment = await commentModel.save();
     if (!comment) return res.status(400).send("Comment cannot be created");
-    // Add to post comments array
-    const post = await Post.findById(comment.postId);
-    let comments = post.comments;
-    comments.push(comment._id);
-    const newPost = await Post.findByIdAndUpdate(post._id, { comments: comments }, { new: true });
-    if (!newPost) return res.status(400).send("Comment could not be saved");
     res.send(comment);
 });
 
@@ -100,14 +101,15 @@ router.put("/:postID/bookmark", async (req, res) => {
     if (!(await authenticate(req.body.token, req.body.userId))) // Expect userId in body
         return res.status(401).json({ success: false, message: "Not authenticated" });
     // Add post ID to user's bookmarks
-    const user = await User.findById(req.body.userId);
+    let user = await User.findById(req.body.userId);
     let bookmarks = user.bookmarks;
     if (!bookmarks.includes(req.params.postID)) {
         bookmarks.push(req.params.postID);
-        const newBookmark = await User.findByIdAndUpdate(req.body.userId, { bookmarks: bookmarks }, { new: true });
-        if (!newBookmark) return res.status(400).send("Post cannot be bookmarked");
+        const newUser = await User.findByIdAndUpdate(req.body.userId, { bookmarks: bookmarks }, { new: true });
+        if (!newUser) return res.status(400).send("Post cannot be bookmarked");
+        user = newUser;
     }
-    res.status(200).send(bookmarks)
+    res.status(200).send(user);
 });
 
 // Unbookmark post by bookmark ID
@@ -123,9 +125,9 @@ router.delete("/:postID/bookmark", async (req, res) => {
     if (index > -1) { // only splice array when item is found
         bookmarks.splice(index, 1); // 2nd parameter means remove one item only
     }
-    const newBookmark = await User.findByIdAndUpdate(req.body.userId, { bookmarks: bookmarks }, { new: true });
-    if (!newBookmark) return res.status(400).send("Post cannot be unbookmarked");
-    res.status(200).send(bookmarks)
+    const newUser = await User.findByIdAndUpdate(req.body.userId, { bookmarks: bookmarks }, { new: true });
+    if (!newUser) return res.status(400).send("Post cannot be unbookmarked");
+    res.status(200).send(newUser)
 });
 
 // Get attendees
@@ -136,8 +138,8 @@ router.get("/:postID/rsvp", async (req, res) => {
 });
 
 // Submit RSVP by post ID
-router.post("/:postID/rsvp", async (req, res) => {
-    const post = await Post.findById(req.params.postID);
+router.put("/:postID/rsvp", async (req, res) => {
+    let post = await Post.findById(req.params.postID);
     if (!post) return res.status(404).send("Post cannot be found.");
     if (!(await authenticate(req.body.token, req.body.userId))) // Expect userId in body
         return res.status(401).json({ success: false, message: "Not authenticated" });
@@ -145,11 +147,11 @@ router.post("/:postID/rsvp", async (req, res) => {
     let attendees = post.attendees;
     if (!attendees.includes(req.body.userId)) {
         attendees.push(req.body.userId);
-        const newAttendee = await Post.findByIdAndUpdate(req.params.postID, { attendees: attendees }, { new: true });
-        if (!newAttendee) return res.status(400).send("Error in submitting RSVP");
+        const newPost = await Post.findByIdAndUpdate(req.params.postID, { attendees: attendees }, { new: true });
+        if (!newPost) return res.status(400).send("Error in submitting RSVP");
+        post = newPost;
     }
-    res.status(200).send(attendees)
-
+    res.status(200).send(post);
 });
 
 // Withdraw RSVP by post ID
@@ -164,9 +166,9 @@ router.delete("/:postID/rsvp", async (req, res) => {
     if (index > -1) { // only splice array when item is found
         attendees.splice(index, 1); // 2nd parameter means remove one item only
     }
-    const newAttendee = await Post.findByIdAndUpdate(req.params.postID, { attendees: attendees }, { new: true });
-    if (!newAttendee) return res.status(400).send("Error in withdrawing RSVP");
-    res.status(200).send(attendees)
+    const newPost = await Post.findByIdAndUpdate(req.params.postID, { attendees: attendees }, { new: true });
+    if (!newPost) return res.status(400).send("Error in withdrawing RSVP");
+    res.status(200).send(newPost);
 });
 
 module.exports = router;

@@ -6,8 +6,6 @@ const router = express.Router();
 // Get overall leaderboard
 router.get("/", async (req, res) => {
     User.find().sort({'score': 'desc'}).exec(function (err, users) {
-        console.log(err);
-        console.log(users);
         if (err) return res.status(400).send("Error while loading leaderboard");
         const leaderboard = [];
         for (let i = 0; i < Math.min(10, users.length); i++) {
