@@ -8,7 +8,7 @@ router.get("/:postID", async (req, res) => {
 
 // Create post
 router.post("/", async (req, res) => {
-
+    
 });
 
 // Delete post by post ID

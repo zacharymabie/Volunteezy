@@ -5,11 +5,7 @@ const { User } = require("../models/user.js");
 // Get public details of profile
 router.get("/:userID/profile", async (req, res) => {
     const user = await User.findById(req.params.userID);
-    console.timeLog(user);
-    if (!user) {
-        res.status(500).json({ message: "The user with the given ID was not found" });
-        return;
-    }
+    if (!user) return res.status(500).json({ message: "The user with the given ID was not found" });
     res.status(200).send({
         id: user._id,
         name: user.name,
@@ -21,28 +17,12 @@ router.get("/:userID/profile", async (req, res) => {
         activities: 0,
         score: 0
     });
-    // res.status(200).send({
-    //     id: 1,
-    //     name: "Brian Eide",
-    //     username: "brianeide",
-    //     profilePic: "https://avatars.githubusercontent.com/u/80086776",
-    //     bio: "I love making volunteering easy",
-    //     posts: [
-
-    //     ],
-    //     verified: true,
-    //     activities: 2,
-    //     score: 1000
-    // });
 });
 
 // Get full private details of user
 router.get("/:userID", async (req, res) => {
     const user = await User.findById(req.params.userID);
-    if (!user) {
-        res.status(500).json({ message: "The user with the given ID was not found" });
-        return;
-    }
+    if (!user) return res.status(500).json({ message: "The user with the given ID was not found" });
     res.status(200).send(user);
 });
 
