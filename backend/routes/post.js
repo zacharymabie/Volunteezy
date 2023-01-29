@@ -94,14 +94,41 @@ router.put("/:postID/bookmark", async (req, res) => {
     if (!post) return res.status(404).send("Post cannot be found.");
     if (!(await authenticate(req.body.token, req.body.userId))) // Expect userId in body
         return res.status(401).json({ success: false, message: "Not authenticated" });
-    // TODO: Add post ID to user's bookmarks
+    // Add post ID to user's bookmarks
+    const user = await User.findById(req.body.userId);
+    let bookmarks = user.bookmarks;
+    if (!bookmarks.includes(req.params.postID)){
+        bookmarks.push(req.params.postID);
+        const new_bookmark = User.findByIdAndUpdate(
+            req.body.userId,
+            {
+              bookmarks: bookmarks
+            },
+            { new: true }
+          );
+        if (!new_bookmark) return res.status(400).send("Post cannot be bookmarked");
+    
+        res.status(200).send(new_bookmark);
+    }
+    res.status(200).send(bookmarks)
 });
 
 // Unbookmark post by bookmark ID
 router.delete("/:postID/bookmark", async (req, res) => {
+    const post = await Post.findById(req.params.postID);
+    if (!post) return res.status(404).send("Post cannot be found.");
     if (!(await authenticate(req.body.token, req.body.userId))) // Expect userId in body
         return res.status(401).json({ success: false, message: "Not authenticated" });
-    // TODO: Remove post ID from user's bookmarks
+    // Delete post ID to user's bookmarks
+    const user = await User.findById(req.body.userId);
+    let bookmarks = user.bookmarks;
+    const index = bookmarks.indexOf(req.params.postID);
+    if (index > -1) { // only splice array when item is found
+        bookmarks.splice(index, 1); // 2nd parameter means remove one item only
+    }
+    const new_bookmark = User.findByIdAndUpdate(req.body.userId, { bookmarks: bookmarks }, { new: true });
+    if (!new_bookmark) return res.status(400).send("Post cannot be unbookmarked");
+    res.status(200).send(bookmarks)
 });
 
 // Get attendees
@@ -117,7 +144,21 @@ router.post("/:postID/rsvp", async (req, res) => {
     if (!post) return res.status(404).send("Post cannot be found.");
     if (!(await authenticate(req.body.token, req.body.userId))) // Expect userId in body
         return res.status(401).json({ success: false, message: "Not authenticated" });
-    // TODO: Add user ID to post's attendees
+    // Add user ID to post's attendees
+    let attendees = post.attendees;
+    if(!attendees.includes(req.body.userId)){
+        attendees.push(req.body.userId);
+        const new_attendee = Post.findByIdAndUpdate(
+            req.params.postID,
+            {
+              attendees: attendees
+            },
+            { new: true }
+          );
+        if (!new_attendee) return res.status(400).send("Error in submitting RSVP");
+    }
+    res.status(200).send(attendees)
+
 });
 
 // Withdraw RSVP by post ID
@@ -126,7 +167,21 @@ router.delete("/:postID/rsvp", async (req, res) => {
     if (!post) return res.status(404).send("Post cannot be found.");
     if (!(await authenticate(req.body.token, req.body.userId))) // Expect userId in body
         return res.status(401).json({ success: false, message: "Not authenticated" });
-    // TODO: Remove user ID from post's attendees
+    // Remove user ID from post's attendees
+    let attendees = post.attendees;
+    const index = attendees.indexOf(req.body.userId);
+    if (index > -1) { // only splice array when item is found
+        attendees.splice(index, 1); // 2nd parameter means remove one item only
+    }
+    const new_attendee = Post.findByIdAndUpdate(
+        req.params.postID,
+        {
+            attendees: attendees
+        },
+        { new: true }
+        );
+    if (!new_attendee) return res.status(400).send("Error in withdrawing RSVP");
+    res.status(200).send(attendees)
 });
 
 module.exports = router;
