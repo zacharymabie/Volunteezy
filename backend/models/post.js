@@ -1,10 +1,6 @@
 const mongoose = require("mongoose");
 
 const postSchema = mongoose.Schema({
-    id: { // Post ID
-        type: Number,
-        required: true,
-    },
     authorId: { // User ID of post author
         type: Number,
         required: true,

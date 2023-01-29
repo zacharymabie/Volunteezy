@@ -1,10 +1,6 @@
 const mongoose = require("mongoose");
 
 const recordSchema = mongoose.Schema({
-    id: { // Record ID
-        type: Number,
-        required: true
-    },
     userID: { // User ID
         type: Number,
         required: true

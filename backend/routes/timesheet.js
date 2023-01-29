@@ -3,7 +3,7 @@ const router = express.Router();
 
 // Get own timesheet
 router.get("/", async (req, res) => {
-
+    
 });
 
 // Get timesheet by user ID
@@ -22,13 +22,13 @@ router.post("/record/new", async (req, res) => {
 });
 
 // Edit entry in timesheet by recordID
-router.post("/record/:recordID/edit", async (req, res) => {
+router.put("/record/:recordID/edit", async (req, res) => {
 
 });
 
 // Export PDF of timesheet
 router.get("/record/:recordID/export", async (req, res) => {
-    
+
 });
 
 module.exports = router;

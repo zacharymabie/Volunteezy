@@ -1,10 +1,6 @@
 const mongoose = require("mongoose");
 
 const commentSchema = mongoose.Schema({
-  id: { // Comment ID
-    type: Number,
-    required: true
-  },
   postId: { // The post that the comment is under
     type: Number,
     required: true

@@ -1,10 +1,6 @@
 const mongoose = require("mongoose");
 
 const userSchema = mongoose.Schema({
-  id: { // User's ID
-    type: Number,
-    required: true,
-  },
   username: { // User's username
     type: String,
     required: true,
@@ -44,6 +40,10 @@ const userSchema = mongoose.Schema({
   bookmarks: { // Array of user's bookmarked post IDs
     type: Array,
     default: []
+  },
+  verified: {
+    type: Boolean,
+    default: false
   }
 });
 
