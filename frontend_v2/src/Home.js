@@ -102,7 +102,7 @@ function Home() {
                         </ul>
                       </footer>
                     </div>
-                    <span className="image"><img src={pic01} alt="" /></span>
+                    <span className="image"><img src="http://mnquants.com/images/zach.jpg" alt="" /></span>
                   </div>
                 </section>
     
