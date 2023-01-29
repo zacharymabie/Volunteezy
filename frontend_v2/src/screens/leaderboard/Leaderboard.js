@@ -63,7 +63,7 @@ function Leaderboard(props){
             <body class="is-preload">
 
                     <div id="wrapper">
-
+                            <ReactConfetti width = {windowSize.current[0]} height = {windowSize.current[0]}> </ReactConfetti>
                             <header id="header">
                                 <h1>Leaderboard</h1>
                                 <p>The top volunteers in your community!</p>
