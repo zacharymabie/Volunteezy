@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const timesheetSchema = mongoose.Schema({
     userID: { // User ID
-        type: Number,
+        type: String,
         required: true
     },
     entries: { // Array of Record objects

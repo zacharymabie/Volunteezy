@@ -5,6 +5,7 @@ const { User } = require("../models/user.js");
 // Get public details of profile
 router.get("/:userID/profile", async (req, res) => {
     const user = await User.findById(req.params.userID);
+    console.timeLog(user);
     if (!user) {
         res.status(500).json({ message: "The user with the given ID was not found" });
         return;

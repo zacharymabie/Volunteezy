@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const recordSchema = mongoose.Schema({
     userID: { // User ID
-        type: Number,
+        type: String,
         required: true
     },
     date: { // Date of hours
@@ -17,7 +17,7 @@ const recordSchema = mongoose.Schema({
         type: String
     },
     supervisorId: { // User ID of supervisor
-        type: Number
+        type: String
     },
     activity: { // Text description of activity
         type: String

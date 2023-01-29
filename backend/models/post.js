@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const postSchema = mongoose.Schema({
     authorId: { // User ID of post author
-        type: Number,
+        type: String,
         required: true,
     },
     content: { // Text content of post
