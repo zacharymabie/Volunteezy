@@ -49,17 +49,17 @@ function Home() {
                     </header>
                     <ul className="features">
                       <li className="top3">
-                        <span className="icon solid major style1 fa-code"></span>
+                        <span style={{borderColor:"silver", borderWidth:"4px"}} className="icon solid major style1 fa-code"></span>
                         <h3>Second Place</h3>
                         <p>Name here</p>
                       </li>
                       <li className="top3">
-                        <span className="icon major style3 fa-copy"></span>
+                        <span style={{borderColor:"gold", borderWidth:"4px"}} className="icon major style3 fa-copy"></span>
                         <h3>First Place</h3>
                         <p>Name here</p>
                       </li>
                       <li className="top3">
-                        <span className="icon major style5 fa-gem"></span>
+                        <span style={{borderColor:"#CD7F32", borderWidth:"4px"}} className="icon major style5 fa-gem"></span>
                         <h3>Third Place</h3>
                         <p>Name here</p>
                       </li>
@@ -67,7 +67,7 @@ function Home() {
                     <footer className="major">
                       <ul className="actions special">
                         {/* <li><a href="screens/leaderboard/Leaderboard.js" className="button">View More</a></li> */}
-                        <li><Link to={`leaderboard`}>View Leaderboard</Link></li>
+                        <span style={{backgroundColor:"aliceblue", border: "1px solid black", padding:"10px", borderRadius:"10px"}}><Link to={`leaderboard`}>View Leaderboard</Link></span>
                       </ul>
                     </footer>
                   </section>
@@ -80,7 +80,7 @@ function Home() {
                     <footer className="major">
                       <ul className="actions special">
                         {/* <li><a href="" className="button">View More</a></li> */}
-                        <li><Link to={`feed`}>View Feed</Link></li>
+                        <span style={{backgroundColor:"aliceblue", border: "1px solid black", padding:"10px", borderRadius:"10px"}}><Link to={`feed`}>View Feed</Link></span>
                       </ul>
                     </footer>
                   </section>
@@ -92,16 +92,12 @@ function Home() {
                         <h2>My Profile</h2>
                       </header>
                       <ul className="features">
-                        <li>
-                          <span className="fa-regular fa-square-poll-vertical"></span>
-                          <h3>Personal Bio</h3>
-                          <p>Placement Bio</p>
-                        </li>
+                          <h3>View your posts, hourly commitment records, and community ranking</h3>
                       </ul>
                       <footer className="major">
                         <ul className="actions special">
                           {/* <li><a href="screens/profile/Profile.js" className="button">View More</a></li> */}
-                        <li><Link to={`profile`}>View Profile</Link></li>
+                        <span style={{backgroundColor:"aliceblue", border: "1px solid black", padding:"10px", borderRadius:"10px"}}><Link to={`profile`}>View Profile</Link></span>
                         </ul>
                       </footer>
                     </div>
@@ -118,7 +114,7 @@ function Home() {
                     <footer className="major">
                       <ul className="actions special">
                         {/* <li><a href="screens/bookmark.html" className="button">View bookmarks</a></li> */}
-                        <li><Link to={`bookmarks`}>View Bookmarks</Link></li>
+                        <span style={{backgroundColor:"aliceblue", border: "1px solid black", padding:"10px", borderRadius:"10px"}}><Link to={`bookmarks`}>View Bookmarks</Link></span>
                       </ul>
                     </footer>
                   </section>
