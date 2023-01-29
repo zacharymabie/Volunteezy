@@ -3,7 +3,7 @@ const router = express.Router();
 
 // Get post
 router.get("/:postID", async (req, res) => {
-
+    
 });
 
 // Create post
