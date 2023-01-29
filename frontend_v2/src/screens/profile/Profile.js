@@ -1,6 +1,32 @@
-
+import { useLocation } from 'react-router-dom'
+import React from 'react';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
+axios.defaults.baseURL = "http://localhost:3000/"
+axios.defaults.headers.common['Access-Control-Allow-Origin'] = "*"
 
 function Profile (){
+    const location = useLocation()
+    const { id, ranking } = location.state
+
+    const [user, setUser] = useState({});
+  
+    const getUserData = () => {
+      axios.get(`user/${id}/profile`)
+      .then((res) => {
+        console.log(res.data)
+        setUser(res.data)
+      })
+      .catch((error) => {
+        console.log("API Error", error.response.data);
+      });
+    }
+  
+    useEffect(() => {
+      getUserData();
+      document.title = "Volunteezy";
+    }, []);
+  
     return(
         <div>
             <head>
@@ -24,25 +50,25 @@ function Profile (){
                                     <div className="spotlight">
                                         <div className="content">
                                             <header className="major" style={{display:"flex", flexDirection:"row", justifyContent:"space-between"}}>
-                                                <h2>First Last</h2>
+                                                <h2>{user.name}</h2>
                                                 <div style={{display:"flex", justifyContent:"right",}}>
                                                     <span className="icon solid style1 fa-lg fa-bookmark" style={{margin:"20px"}}></span>
                                                     <span className="icon solid style1 fa-lg fa-bars" style={{margin:"20px"}}></span>
                                                 </div>
                                             </header>
                                             <div style={{display:"flex", flexDirection:"row", justifyContent:"space-between"}} >
-                                                <div style={{width:" 40%"}} ><img style={{width:"300px", height:"300px"}} src="http://mnquants.com/images/zach.jpg" alt="" /></div>
+                                                <div style={{width:" 40%"}} ><img style={{width:"300px", height:"300px", borderRadius:"50%"}} src={user.profilePic} alt="" /></div>
                                                 <div style={{width:"60%"}}>
                                                     <div style={{display:"flex", flexDirection:"row", justifyContent:"space-evenly"}}>
                                                         <span style={{width:"250px", height:"70px",}}>
-                                                            <p style={{paddingTop:"60px" , fontWeight:"bold",fontSize:50, display:"flex", justifyContent:"center", alignItems:"center"}}>Rank: #30</p>
+                                                            <p style={{paddingTop:"60px" , fontWeight:"bold",fontSize:50, display:"flex", justifyContent:"center", alignItems:"center"}}>Rank: #{ranking}</p>
                                                         </span>
                                                         <span style={{width:"250px", height:"70px",}}>
-                                                            <p style={{paddingTop:"60px" , fontWeight:"bold",fontSize:50, display:"flex", justifyContent:"center", alignItems:"center"}}>Hours: 129</p>
+                                                            <p style={{paddingTop:"60px" , fontWeight:"bold",fontSize:50, display:"flex", justifyContent:"center", alignItems:"center"}}>Hours: {user.score}</p>
                                                         </span>
                                                     </div>
                                                     <div style={{paddingTop:"150px"}}>
-                                                        <p style={{fontSize:25}}>Bio Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                                                        <p style={{fontSize:25}}>{user.bio} </p>
                                                     </div>
                                                 </div>
                                             </div>

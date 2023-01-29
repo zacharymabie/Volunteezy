@@ -9,6 +9,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import ErrorPage from "./error-page";
+import ScrollToTop from "./ScrollToTop";
 
 const router = createBrowserRouter([
   {
