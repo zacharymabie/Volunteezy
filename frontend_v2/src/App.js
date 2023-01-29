@@ -1,133 +1,35 @@
-import './App.css';
+import React from 'react';
+import Home from './Home';
+import Bookmarks from './screens/bookmarks/Bookmarks';
+import Feed from './screens/feed/Feed';
+import Leaderboard from './screens/leaderboard/Leaderboard';
+import Profile from './screens/profile/Profile';
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
 
-function App() {
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home/>,
+  },
+  {
+    path:"/feed",
+    element:<Feed/>
+  }
+]);
+
+function App(){
   return (
-    <div>
-
-      <head>
-        <title>Volunteezy</title>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-        <link rel="stylesheet" href="assets/css/main.css" />
-        <link rel="icon" type="image/x-icon" href="images/favicon.png"/>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="scripts/index.js"></script>
-        <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-      </head>
-      <body class="is-preload">
-    
-          <div id="wrapper">
-    
-              <header id="header" class="alt">
-                <span class="logo"><img src="images/volunteezy_logo.png" alt="" /></span>
-                <h1>Volunteering Made Easy</h1>
-              </header>
-    
-              <nav id="nav">
-                <ul>
-                  <li><a href="#leaderboard" class="active">Leaderboard</a></li>
-                  <li><a href="#feed">Feed</a></li>
-                  <li><a href="#profile">Profile</a></li>
-                  <li><a href="#bookmarks">Bookmarks</a></li>
-                </ul>
-              </nav>
-    
-              <div id="main">
-    
-                  <section id="leaderboard" class="main special">
-                    <header class="major">
-                      <h2>Leaderboard: Top Volunteers in Your Community!</h2>
-                    </header>
-                    <ul class="features">
-                      <li class="top3">
-                        <span class="icon solid major style1 fa-code"></span>
-                        <h3>Second Place</h3>
-                        <p>Name here</p>
-                      </li>
-                      <li class="top3">
-                        <span class="icon major style3 fa-copy"></span>
-                        <h3>First Place</h3>
-                        <p>Name here</p>
-                      </li>
-                      <li class="top3">
-                        <span class="icon major style5 fa-gem"></span>
-                        <h3>Third Place</h3>
-                        <p>Name here</p>
-                      </li>
-                    </ul>
-                    <footer class="major">
-                      <ul class="actions special">
-                        <li><a href="screens/leaderboard/Leaderboard.js" class="button">View More</a></li>
-                      </ul>
-                    </footer>
-                  </section>
-    
-                  <section id="feed" class="main special">
-                    <header class="major">
-                      <h2>Feed</h2>
-                      <p>View listings by members of your community, find out what opportunities are available for you to help out and make your community a better place!</p>
-                    </header>
-                    <footer class="major">
-                      <ul class="actions special">
-                        <li><a href="screens/feed.html" class="button">View More</a></li>
-                      </ul>
-                    </footer>
-                  </section>
-    
-                <section id="profile" class="main">
-                  <div class="spotlight">
-                    <div class="content">
-                      <header class="major">
-                        <h2>My Profile</h2>
-                      </header>
-                      <ul class="features">
-                        <li>
-                          <span class="fa-regular fa-square-poll-vertical"></span>
-                          <h3>Personal Bio</h3>
-                          <p>Placement Bio</p>
-                        </li>
-                      </ul>
-                      <footer class="major">
-                        <ul class="actions special">
-                          <li><a href="screens/profile/Profile.js" class="button">View More</a></li>
-                        </ul>
-                      </footer>
-                    </div>
-                    <span class="image"><img src="images/pic01.jpg" alt="" /></span>
-                  </div>
-                </section>
-    
-    
-                  <section id="bookmarks" class="main special">
-                    <header class="major">
-                      <h2>Bookmarks</h2>
-                      <p>View your saved volunteer activities and user profiles</p>
-                    </header>
-                    <footer class="major">
-                      <ul class="actions special">
-                        <li><a href="screens/bookmark.html" class="button">View bookmarks</a></li>
-                      </ul>
-                    </footer>
-                  </section>
-    
-              </div>
-    
-              <footer id="footer">
-                <p class="copyright">&copy; Untitled. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
-              </footer>
-    
-          </div>
-    
-          <script src="assets/js/jquery.min.js"></script>
-          <script src="assets/js/jquery.scrollex.min.js"></script>
-          <script src="assets/js/jquery.scrolly.min.js"></script>
-          <script src="assets/js/browser.min.js"></script>
-          <script src="assets/js/breakpoints.min.js"></script>
-          <script src="assets/js/util.js"></script>
-          <script src="assets/js/main.js"></script>
-    
-      </body>
-    </div>
+    <React.StrictMode>
+      {/* <BrowserRouter>
+      <Route path="/" exact component={Home}/>
+      <Route path="/feed" component={Feed}/>
+      </BrowserRouter> */}
+      <Home/>
+      {/* <RouterProvider router={router} /> */}
+    </React.StrictMode>
   );
 }
 
