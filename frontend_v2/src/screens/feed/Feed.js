@@ -1,4 +1,4 @@
-
+import mosh from "../../images/mosh.jpg"
 
 function Feed(){
     return(
@@ -10,7 +10,7 @@ function Feed(){
                 <link rel="stylesheet" href="../assets/css/main.css" />
                 <noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
             </head>
-            <body class="is-preload">
+            <body className="is-preload">
 
                     <div id="wrapper">
 
@@ -20,70 +20,70 @@ function Feed(){
 
                             <div id="main">
 
-                                    <section style="background-color:aliceblue;" id="content" class="main">
-                                        <div class="post">
-                                            <div class="post-header">
-                                            <img src="../images/mosh.jpg" alt="Profile Picture" class="profile-picture"/>
-                                            <div class="username">John Doe</div>
+                                    <section style={{"background-color":"aliceblue"}} id="content" className="main">
+                                        <div className="post">
+                                            <div className="post-header">
+                                            <img src={mosh} alt="Profile Picture" className="profile-picture"/>
+                                            <div className="username">John Doe</div>
                                             </div>
-                                            <img src="post-image.jpg" alt="Post Image" class="post-image"/>
-                                            <p class="post-content">This is an example post on my social media profile.</p>
-                                            <div class="post-footer">
-                                            <div class="icon-size participating-count">
-                                                <span class="icon style1 fa-lg fa-thumbs-up"></span>
+                                            <img alt="Post Image" className="post-image"/>
+                                            <p className="post-content">This is an example post on my social media profile.</p>
+                                            <div className="post-footer">
+                                            <div className="icon-size participating-count">
+                                                <span className="icon style1 fa-lg fa-thumbs-up"></span>
                                             </div>
-                                            <div class="icon-size comment-count">
-                                                <span class="icon style1 fa-lg fa-comment"></span>
+                                            <div className="icon-size comment-count">
+                                                <span className="icon style1 fa-lg fa-comment"></span>
                                             </div>
-                                            <div class="icon-size bookmark">
-                                                <span class="icon style1 fa-lg fa-bookmark"></span>
+                                            <div className="icon-size bookmark">
+                                                <span className="icon style1 fa-lg fa-bookmark"></span>
                                             </div>
-                                            <div class="icon-size share">
-                                                <span class="icon style1 fa-lg fa-paper-plane"></span>
+                                            <div className="icon-size share">
+                                                <span className="icon style1 fa-lg fa-paper-plane"></span>
                                             </div>
                                             </div>
                                         </div>                
-                                        <div class="post">
-                                            <div class="post-header">
-                                            <img src="../images/mosh.jpg" alt="Profile Picture" class="profile-picture"/>
-                                            <div class="username">John Doe</div>
+                                        <div className="post">
+                                            <div className="post-header">
+                                            <img src={mosh} alt="Profile Picture" className="profile-picture"/>
+                                            <div className="username">John Doe</div>
                                             </div>
-                                            <img src="post-image.jpg" alt="Post Image" class="post-image"/>
-                                            <p class="post-content">This is an example post on my social media profile.</p>
-                                            <div class="post-footer">
-                                            <div class="icon-size participating-count">
-                                                <span class="icon style1 fa-lg fa-thumbs-up"></span>
+                                            <img src="post-image.jpg" alt="Post Image" className="post-image"/>
+                                            <p className="post-content">This is an example post on my social media profile.</p>
+                                            <div className="post-footer">
+                                            <div className="icon-size participating-count">
+                                                <span className="icon style1 fa-lg fa-thumbs-up"></span>
                                             </div>
-                                            <div class="icon-size comment-count">
-                                                <span class="icon style1 fa-lg fa-comment"></span>
+                                            <div className="icon-size comment-count">
+                                                <span className="icon style1 fa-lg fa-comment"></span>
                                             </div>
-                                            <div class="icon-size bookmark">
-                                                <span class="icon style1 fa-lg fa-bookmark"></span>
+                                            <div className="icon-size bookmark">
+                                                <span className="icon style1 fa-lg fa-bookmark"></span>
                                             </div>
-                                            <div class="icon-size share">
-                                                <span class="icon style1 fa-lg fa-paper-plane"></span>
+                                            <div className="icon-size share">
+                                                <span className="icon style1 fa-lg fa-paper-plane"></span>
                                             </div>
                                             </div>
                                         </div> 
-                                        <div class="post">
-                                            <div class="post-header">
-                                            <img src="../images/mosh.jpg" alt="Profile Picture" class="profile-picture"/>
-                                            <div class="username">John Doe</div>
+                                        <div className="post">
+                                            <div className="post-header">
+                                            <img src={mosh} alt="Profile Picture" className="profile-picture"/>
+                                            <div className="username">John Doe</div>
                                             </div>
-                                            <img src="post-image.jpg" alt="Post Image" class="post-image"/>
-                                            <p class="post-content">This is an example post on my social media profile.</p>
-                                            <div class="post-footer">
-                                            <div class="icon-size participating-count">
-                                                <span class="icon style1 fa-lg fa-thumbs-up"></span>
+                                            <img src="post-image.jpg" alt="Post Image" className="post-image"/>
+                                            <p className="post-content">This is an example post on my social media profile.</p>
+                                            <div className="post-footer">
+                                            <div className="icon-size participating-count">
+                                                <span className="icon style1 fa-lg fa-thumbs-up"></span>
                                             </div>
-                                            <div class="icon-size comment-count">
-                                                <span class="icon style1 fa-lg fa-comment"></span>
+                                            <div className="icon-size comment-count">
+                                                <span className="icon style1 fa-lg fa-comment"></span>
                                             </div>
-                                            <div class="icon-size bookmark">
-                                                <span class="icon style1 fa-lg fa-bookmark"></span>
+                                            <div className="icon-size bookmark">
+                                                <span className="icon style1 fa-lg fa-bookmark"></span>
                                             </div>
-                                            <div class="icon-size share">
-                                                <span class="icon style1 fa-lg fa-paper-plane"></span>
+                                            <div className="icon-size share">
+                                                <span className="icon style1 fa-lg fa-paper-plane"></span>
                                             </div>
                                             </div>
                                         </div>                   
@@ -92,7 +92,7 @@ function Feed(){
                             </div>
 
                             <footer id="footer">
-                                <p class="copyright">&copy; Untitled. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+                                <p className="copyright">&copy; Untitled. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
                             </footer>
 
                     </div>

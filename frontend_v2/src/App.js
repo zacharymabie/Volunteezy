@@ -8,11 +8,13 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import ErrorPage from "./error-page";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Home/>,
+    errorElement: <ErrorPage/>,
   },
   {
     path:"/feed",
@@ -27,8 +29,8 @@ function App(){
       <Route path="/" exact component={Home}/>
       <Route path="/feed" component={Feed}/>
       </BrowserRouter> */}
-      <Home/>
-      {/* <RouterProvider router={router} /> */}
+      {/* <Home/> */}
+      <RouterProvider router={router} />
     </React.StrictMode>
   );
 }

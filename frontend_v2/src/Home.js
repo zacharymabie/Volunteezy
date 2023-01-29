@@ -78,7 +78,8 @@ function Home() {
                     </header>
                     <footer className="major">
                       <ul className="actions special">
-                        <li><a href="" className="button">View More</a></li>
+                        {/* <li><a href="" className="button">View More</a></li> */}
+                        <li><Link to={`feed`}>View More</Link></li>
                       </ul>
                     </footer>
                   </section>
