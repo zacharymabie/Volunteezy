@@ -2,11 +2,14 @@ import {Link} from 'react-router-dom';
 import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from "axios";
+import { useRef } from 'react';
+import ReactConfetti from 'react-confetti';
 axios.defaults.baseURL = "http://localhost:3000/"
 axios.defaults.headers.common['Access-Control-Allow-Origin'] = "*"
 
 
 function Leaderboard(props){
+    const windowSize = useRef([window.innerWidth, window.innerHeight]);
 
     const [first, setFirst] = useState("");
     const [second, setSecond] = useState("");
