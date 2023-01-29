@@ -1,5 +1,5 @@
 # Volunteezy
 Volunteering Made Easy
-
 ## Minnehack 2023
-[Devpost for full project summary: ](https://devpost.com/software/volunteezy)
+![Alt text](./frontend_v2/src/images/volunteezy_logo.png)
+[Devpost For Complete Summary](https://devpost.com/software/volunteezy)
