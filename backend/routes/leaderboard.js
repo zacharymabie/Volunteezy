@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
+// Get overall leaderboard
 router.get("/", async (req, res) => {
     res.status(200).send([
         {
@@ -21,6 +22,7 @@ router.get("/", async (req, res) => {
     ]);
 });
 
+// Get local leaderboard
 router.get("/local", async (req, res) => {
     res.status(200).send([
         {
