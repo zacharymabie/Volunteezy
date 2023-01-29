@@ -11,6 +11,7 @@ router.get("/", async (req, res) => {
         for (let i = 0; i < Math.min(10, users.length); i++) {
             const user = users[i];
             leaderboard.push({
+                userId: user._id,
                 name: user.name,
                 profilePic: user.profilePic,
                 score: user.score
@@ -31,6 +32,7 @@ router.get("/local", async (req, res) => {
         for (let i = 0; i < Math.min(10, users.length); i++) {
             const user = users[i];
             leaderboard.push({
+                userId: user._id,
                 name: user.name,
                 profilePic: user.profilePic,
                 score: user.score
