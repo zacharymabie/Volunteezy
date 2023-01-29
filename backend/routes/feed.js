@@ -6,7 +6,6 @@ const { authenticate } = require("../util.js");
 
 // Get feed
 router.get("/", async (req, res) => {
-    console.log(req);
     if (!(await authenticate(req.query.token, req.query.userId))) // Expect userId in params
         return res.status(401).json({ success: false, message: "Authentication failed" });
     const user = await User.findById(req.query.userId);

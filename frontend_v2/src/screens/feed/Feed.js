@@ -15,12 +15,16 @@ function Feed(){
     const [feed1, setFeed1] = useState({});
     const [feed2, setFeed2] = useState({});
     const [feed3, setFeed3] = useState({});
+    const [user1, setUser1] = useState({});
+    const [user2, setUser2] = useState({});
+    const [user3, setUser3] = useState({});
+    
 
     const options = {
         headers:{
             Accept: "application/json"
         },
-        data:{
+        params:{
             "userId": "63d69fa7bd943d4d7b74345a",
             "token": "password"
         }
@@ -31,16 +35,42 @@ function Feed(){
       .then((res) => {
         console.log(res.data)
         setFeed1(res.data[0]);
+        axios.get(`user/${res.data[0].authorId}/profile`)
+        .then((res) => {
+            setUser1(res.data)
+        })
+        .catch((error) => {
+          console.log("API Error", error);
+        });
         setFeed2(res.data[1]);
+        axios.get(`user/${res.data[1].authorId}/profile`)
+        .then((res) => {
+            setUser2(res.data)
+        })
+        .catch((error) => {
+          console.log("API Error", error);
+        });
         setFeed3(res.data[2]);
+        axios.get(`user/${res.data[2].authorId}/profile`)
+        .then((res) => {
+            setUser3(res.data)
+        })
+        .catch((error) => {
+          console.log("API Error", error);
+        });
       })
       .catch((error) => {
-        console.log("API Error", error.response.data);
+        console.log("API Error", error);
       });
+    }
+
+    const fillUser = () => {
     }
   
     useEffect(() => {
       getFeedData();
+      fillUser()
+
       document.title = "Volunteezy";
     }, []);
 
@@ -99,8 +129,8 @@ function Feed(){
                                     <section style={{"background-color":"aliceblue"}} id="content" className="main">
                                         <div className="post">
                                             <div className="post-header">
-                                            <img src={mosh} alt="Profile Picture" className="profile-picture"/>
-                                            <div className="username">John Doe</div>
+                                            <img src={user1.profilePic} alt="Profile Picture" className="profile-picture"/>
+                                            <div className="username">{user1.name}</div>
                                             </div>
                                             <img src={feed1.attachment} alt="" className="post-image"/>
                                             <p className="post-content">{feed1.content}</p>
@@ -121,11 +151,11 @@ function Feed(){
                                         </div>                
                                         <div className="post">
                                             <div className="post-header">
-                                            <img src={mosh} alt="Profile Picture" className="profile-picture"/>
-                                            <div className="username">John Doe</div>
+                                            <img src={user2.profilePic} alt="Profile Picture" className="profile-picture"/>
+                                            <div className="username">{user2.name}</div>
                                             </div>
-                                            <img src="post-image.jpg" alt="Post Image" className="post-image"/>
-                                            <p className="post-content">This is an example post on my social media profile.</p>
+                                            <img src={feed2.attachment} alt="Post Image" className="post-image"/>
+                                            <p className="post-content">{feed2.content}</p>
                                             <div className="post-footer">
                                             <div className="icon-size participating-count">
                                                 <span className="icon style1 fa-lg fa-thumbs-up"></span>
@@ -143,11 +173,11 @@ function Feed(){
                                         </div> 
                                         <div className="post">
                                             <div className="post-header">
-                                            <img src={mosh} alt="Profile Picture" className="profile-picture"/>
-                                            <div className="username">John Doe</div>
+                                            <img src={user3.profilePic} alt="Profile Picture" className="profile-picture"/>
+                                            <div className="username">{user3.name}</div>
                                             </div>
-                                            <img src="post-image.jpg" alt="Post Image" className="post-image"/>
-                                            <p className="post-content">This is an example post on my social media profile.</p>
+                                            <img src={feed3.attachment} alt="Post Image" className="post-image"/>
+                                            <p className="post-content">{feed3.content}</p>
                                             <div className="post-footer">
                                             <div className="icon-size participating-count">
                                                 <span className="icon style1 fa-lg fa-thumbs-up"></span>
