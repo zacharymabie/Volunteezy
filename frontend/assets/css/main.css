@@ -10,7 +10,7 @@
 .box {
 	width: 150px;
 	height: 150px;
-	border: 1px solid black;
+	border: 1px solid rgb(0, 0, 0);
 	padding: 10px;
 	display: flex;
 	align-items: center;
