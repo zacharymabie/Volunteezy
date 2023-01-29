@@ -1,13 +1,49 @@
 import mosh from "../../images/mosh.jpg"
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from "axios";
 import Button from '../../../node_modules/react-bootstrap/Button';
 import Form from '../../../node_modules/react-bootstrap/Form';
 import Modal from '../../../node_modules/react-bootstrap/Modal';
+axios.defaults.baseURL = "http://localhost:3000/"
+axios.defaults.headers.common['Access-Control-Allow-Origin'] = "*"
 
 function Feed(){
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    const [feed1, setFeed1] = useState({});
+    const [feed2, setFeed2] = useState({});
+    const [feed3, setFeed3] = useState({});
+
+    const options = {
+        headers:{
+            Accept: "application/json"
+        },
+        data:{
+            "userId": "63d69fa7bd943d4d7b74345a",
+            "token": "password"
+        }
+    }
+  
+    const getFeedData = () => {
+      axios.get(`feed`, options)
+      .then((res) => {
+        console.log(res.data)
+        setFeed1(res.data[0]);
+        setFeed2(res.data[1]);
+        setFeed3(res.data[2]);
+      })
+      .catch((error) => {
+        console.log("API Error", error.response.data);
+      });
+    }
+  
+    useEffect(() => {
+      getFeedData();
+      document.title = "Volunteezy";
+    }, []);
+
 
     return(
         <div>
@@ -66,8 +102,8 @@ function Feed(){
                                             <img src={mosh} alt="Profile Picture" className="profile-picture"/>
                                             <div className="username">John Doe</div>
                                             </div>
-                                            <img alt="Post Image" className="post-image"/>
-                                            <p className="post-content">This is an example post on my social media profile.</p>
+                                            <img src={feed1.attachment} alt="" className="post-image"/>
+                                            <p className="post-content">{feed1.content}</p>
                                             <div className="post-footer">
                                             <div className="icon-size participating-count">
                                                 <span className="icon style1 fa-lg fa-thumbs-up"></span>
