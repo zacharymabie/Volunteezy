@@ -37,7 +37,7 @@ const userSchema = mongoose.Schema({
     type: Boolean,
     default: false
   },
-  score: { // Score calculated by hours * 3 * # of activities
+  score: { // Score calculated by hours
     type: Number,
     default: 0
   }
