@@ -66,7 +66,8 @@ function Home() {
                     </ul>
                     <footer className="major">
                       <ul className="actions special">
-                        <li><a href="screens/leaderboard/Leaderboard.js" className="button">View More</a></li>
+                        {/* <li><a href="screens/leaderboard/Leaderboard.js" className="button">View More</a></li> */}
+                        <li><Link to={`leaderboard`}>View Leaderboard</Link></li>
                       </ul>
                     </footer>
                   </section>
@@ -79,7 +80,7 @@ function Home() {
                     <footer className="major">
                       <ul className="actions special">
                         {/* <li><a href="" className="button">View More</a></li> */}
-                        <li><Link to={`feed`}>View More</Link></li>
+                        <li><Link to={`feed`}>View Feed</Link></li>
                       </ul>
                     </footer>
                   </section>
@@ -99,7 +100,8 @@ function Home() {
                       </ul>
                       <footer className="major">
                         <ul className="actions special">
-                          <li><a href="screens/profile/Profile.js" className="button">View More</a></li>
+                          {/* <li><a href="screens/profile/Profile.js" className="button">View More</a></li> */}
+                        <li><Link to={`profile`}>View Profile</Link></li>
                         </ul>
                       </footer>
                     </div>
@@ -115,7 +117,8 @@ function Home() {
                     </header>
                     <footer className="major">
                       <ul className="actions special">
-                        <li><a href="screens/bookmark.html" className="button">View bookmarks</a></li>
+                        {/* <li><a href="screens/bookmark.html" className="button">View bookmarks</a></li> */}
+                        <li><Link to={`bookmarks`}>View Bookmarks</Link></li>
                       </ul>
                     </footer>
                   </section>

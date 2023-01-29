@@ -19,7 +19,19 @@ const router = createBrowserRouter([
   {
     path:"/feed",
     element:<Feed/>
-  }
+  },
+  {
+    path:"/bookmarks",
+    element:<Bookmarks/>
+  },
+  {
+    path:"/leaderboard",
+    element:<Leaderboard/>
+  },
+  {
+    path:"/profile",
+    element:<Profile/>
+  },
 ]);
 
 function App(){
